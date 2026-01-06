@@ -1,5 +1,12 @@
 function Home() {
-    return <h1>Testes</h1>
+  return <h1>Testes</h1>;
 }
 
 export default Home;
+
+function teste() {
+  console.log("identdadas"),
+}
+
+
+
