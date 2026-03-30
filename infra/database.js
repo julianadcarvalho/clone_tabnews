@@ -1,7 +1,7 @@
-import { Client } from 'pg'
+import { Client } from "pg";
 
-async function query(querObject) {
-  const isProduction = process.env.NODE_ENV === 'production';
+async function getNewClient() {
+  const isProduction = process.env.NODE_ENV === "production";
 
   const client = new Client({
     host: process.env.POSTGRES_HOST,
@@ -17,15 +17,18 @@ async function query(querObject) {
   });
 
   await client.connect();
+  return client;
+}
+
+async function query(queryObject) {
+  const client = await getNewClient();
 
   try {
-    const result = await client.query(querObject);
+    const result = await client.query(queryObject);
     return result;
-
   } catch (error) {
     console.error(error);
     throw error;
-
   } finally {
     await client.end();
   }
@@ -33,4 +36,5 @@ async function query(querObject) {
 
 export default {
   query,
+  getNewClient
 };
