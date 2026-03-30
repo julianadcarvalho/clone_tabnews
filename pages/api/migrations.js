@@ -1,7 +1,7 @@
 import migrationRunner from "node-pg-migrate";
 
 export default async function migrations(request, response) {
-  const databaseUrl = process.env.DATABASE_URL;
+  const databaseUrl = process.env.POSTGRES_HOST;
 
   if (request.method === "GET") {
     const migrations = await migrationRunner({
